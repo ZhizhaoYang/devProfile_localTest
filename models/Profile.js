@@ -51,6 +51,10 @@ const ProfileSchema = new Schema({
   skills: [
     {
       type: Object,
+
+      id: {
+        type: Number
+      },
       skillName: {
         type: String,
         required: true

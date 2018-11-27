@@ -54,4 +54,9 @@ export const createProfile = (profileData, history) => dispatch => {
     );
 };
 
+//Change & collent the skills component states value
+// export const collectSkill = newSkill => {
+//   return newSkill;
+// };
+
 export const addSkills = newSkills => dispatch => {};

@@ -5,6 +5,7 @@ export default class About extends Component {
     return (
       <div>
         <h1>About Page</h1>
+        <h1>Author: Zhizhao Yang</h1>
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-// import uuid from "uuid";
 
 import {
   Button,
@@ -20,7 +19,6 @@ import {
 
 import isEmpty from "../../../toolKit/isEmpty";
 import InputFieldForEdit from "./InputFieldForEdit";
-import InputFieldForSkills from "./InputFieldForSkills";
 
 class EditProfile extends Component {
   constructor(props) {
@@ -84,18 +82,6 @@ class EditProfile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // onChangeSkills = (e, index) => {
-  //   // to do
-  //   // this.setState({
-  //   //  skills: update(this.state.skills, { [e.target.name]: e.target.value })
-  //   // });
-  //   // console.log("chang");
-  //   // if (!isEmpty(this.state.skills) && !isEmpty(e.target.value)) {
-  //   //   this.state.skills[index].skillName = e.target.value;
-  //   // }
-  //   // console.log(this.state.skill[index]);
-  // };
-
   onSubmit = async e => {
     e.preventDefault();
 
@@ -112,27 +98,53 @@ class EditProfile extends Component {
     this.props.createProfile(profileData, this.props.history);
   };
 
+  onChangeSkills = (e, id) => {
+    const newName = e.target.name;
+    const newValue = e.target.value;
+    const index = id.content;
+    const newSkillsArr = this.state.skills;
+
+    newSkillsArr.map(skill => {
+      if (skill.id === index) {
+        if (newName === "skillName") {
+          newSkillsArr[index].skillName = newValue;
+        } else if (newName === "percentage") {
+          newSkillsArr[index].percentage = newValue;
+        }
+      }
+    });
+
+    this.setState({ skills: newSkillsArr });
+  };
+
   render() {
     const { skills } = this.state;
 
-    // let skillNames = [];
-    // this.state.skills.map((skill, index) => {
-    //   console.log(index);
-    //   console.log(typeof index);
+    let skillsComponent;
+    if (!isEmpty(skills)) {
+      skillsComponent = skills.map(newSkill => {
+        let id = newSkill.id;
+        return (
+          <Form.Field key={newSkill.id} as="div">
+            <Form.Input
+              name="skillName"
+              value={this.state.skills[id].skillName}
+              type="text"
+              onChange={this.onChangeSkills}
+              content={id}
+            />
 
-    //   skillNames.push(
-    //     <Form.Field key={index}>
-    //       <Header as="h4" style={{ marginBottom: 0 }}>
-    //         <Form.Input
-    //           name="skillName"
-    //           value={skill.skillName}
-    //           type="text"
-    //           onChange={this.onChangeSkills(index)}
-    //         />
-    //       </Header>
-    //     </Form.Field>
-    //   );
-    // });
+            <Form.Input
+              name="percentage"
+              value={this.state.skills[id].percentage}
+              type="number"
+              onChange={this.onChangeSkills}
+              content={id}
+            />
+          </Form.Field>
+        );
+      });
+    }
 
     return (
       <Container className="EditProfile" as="div">
@@ -165,7 +177,7 @@ class EditProfile extends Component {
 
                 <InputFieldForEdit
                   name="jobStatus"
-                  value={this.state.jobstatus}
+                  value={this.state.jobStatus}
                   label="* Job Status:"
                   placeholder="Enter job status"
                   type="text"
@@ -195,8 +207,16 @@ class EditProfile extends Component {
 
                 <h4>Skills:</h4>
 
-                <InputFieldForSkills skills={skills} />
-                {/* {skillNames.map(skillName => skillName)} */}
+                <Form.Field>
+                  <Header as="h4" style={{ marginBottom: 0 }}>
+                    <Form.Group>
+                      {isEmpty(skillsComponent) ? null : skillsComponent}
+                    </Form.Group>
+                    <Form.Button size="tiny" color="red">
+                      + New Line
+                    </Form.Button>
+                  </Header>
+                </Form.Field>
 
                 <Form.Field
                   name="bio"
