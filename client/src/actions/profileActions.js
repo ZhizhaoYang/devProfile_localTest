@@ -59,4 +59,4 @@ export const createProfile = (profileData, history) => dispatch => {
 //   return newSkill;
 // };
 
-export const addSkills = newSkills => dispatch => {};
+export const addNewSkill = () => {};
