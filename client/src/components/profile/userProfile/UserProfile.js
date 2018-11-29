@@ -10,6 +10,7 @@ import "./UserProfile.css";
 import Spinner from "../../common/Spinner";
 import ProfileNamecard from "./ProfileNameCard";
 import BioSection from "./BioSection";
+import SkillSet from "./SkillSection";
 
 class UserProfile extends Component {
   componentDidMount = () => {
@@ -24,13 +25,17 @@ class UserProfile extends Component {
     if (userProfile === null || loading) {
       profileContent = <Spinner />;
     } else {
+      const { skills } = userProfile;
+
       let nameCard = <ProfileNamecard userProfile={userProfile} />;
       let bioSection = <BioSection userProfile={userProfile} />;
+      let skillSet = <SkillSet skills={skills} />;
       // The main container of single profile page
       profileContent = (
         <div>
-          {nameCard}
-          {bioSection}
+          <div>{nameCard}</div>
+          <div>{bioSection}</div>
+          <div>{skillSet}</div>
         </div>
       );
     }
