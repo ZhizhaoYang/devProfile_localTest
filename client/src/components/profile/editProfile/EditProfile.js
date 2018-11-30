@@ -41,7 +41,7 @@ class EditProfile extends Component {
 
   componentDidMount = () => {
     document.title = "Edit Profile Page";
-    this.props.getCurrentUserProfile();
+    this.props.getCurrentUserProfile(this.props.auth.user.id);
   };
 
   componentWillReceiveProps(nextProps) {
@@ -137,7 +137,7 @@ class EditProfile extends Component {
 
   onChangeNewSkills = e => {
     const name = e.target.name;
-    const value = e.target.value;
+    // const value = e.target.value;
     // const newSkillsArr =
 
     if (name === "SkillName") {
@@ -154,8 +154,7 @@ class EditProfile extends Component {
 
     // Note: in semantic react, id.content attribute can hold things,
     //       we can use it to hold more complicate data next time
-
-    newSkillsArr.map(skill => {
+    newSkillsArr.forEach(skill => {
       if (skill.id === index) {
         if (newName === "skillName") {
           newSkillsArr[index].skillName = newValue;
@@ -245,7 +244,7 @@ class EditProfile extends Component {
     });
 
     skillsComponent = (
-      <div>
+      <section>
         <Container>
           <Grid>
             <Grid.Row centered columns={1} style={{ paddingBottom: 0 }}>
@@ -299,7 +298,7 @@ class EditProfile extends Component {
             </Grid.Row>
           </Grid>
         </Container>
-      </div>
+      </section>
     );
     // }
     // ----------------------------------------------------------
@@ -389,9 +388,23 @@ class EditProfile extends Component {
                   <Checkbox label="I agree to the Terms and Conditions" />
                 </Form.Field> */}
 
-            <Button type="submit" color="teal" fluid style={{ marginTop: 40 }}>
-              Submit
-            </Button>
+            <Grid.Row centered>
+              <Grid.Column
+                textAlign="center"
+                computer={10}
+                tablet={9}
+                mobile={11}
+              >
+                <Button
+                  type="submit"
+                  color="teal"
+                  fluid
+                  style={{ marginTop: 40 }}
+                >
+                  Submit
+                </Button>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Container>
       </Form>
@@ -406,8 +419,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCurrentUserProfile: () => {
-    dispatch(getCurrentUserProfile());
+  getCurrentUserProfile: userID => {
+    dispatch(getCurrentUserProfile(userID));
   },
   createProfile: (profileData, history) => {
     dispatch(createProfile(profileData, history));

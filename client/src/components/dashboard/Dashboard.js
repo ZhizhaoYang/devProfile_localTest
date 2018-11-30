@@ -12,7 +12,8 @@ import isEmpty from "../../toolKit/isEmpty";
 class Dashboard extends Component {
   componentDidMount = () => {
     document.title = "Dashboard Page";
-    this.props.getCurrentUserProfile();
+
+    this.props.getCurrentUserProfile(this.props.auth.user.id);
   };
 
   render() {
@@ -31,10 +32,12 @@ class Dashboard extends Component {
           </Container>
         );
       } else if (Object.keys(userProfile).length > 0) {
+        let userID = this.props.auth.user.id;
+
         dashboardContent = (
           <Container>
             <h1>Dashboard Page</h1>
-            <Link to="/userProfile">
+            <Link to={`/userProfile/${userID}`}>
               <Button color="blue">Go to current profile</Button>
             </Link>
             <Link to="/editProfile">
@@ -56,8 +59,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCurrentUserProfile: () => {
-    dispatch(getCurrentUserProfile());
+  getCurrentUserProfile: userID => {
+    dispatch(getCurrentUserProfile(userID));
   }
 });
 

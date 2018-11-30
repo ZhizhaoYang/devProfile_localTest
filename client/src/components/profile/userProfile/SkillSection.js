@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import propTypes from "prop-types";
+import uuid from "uuid";
 
 import { Grid, Header, Container, Divider } from "semantic-ui-react";
-import uuid from "uuid";
 
 import "./SkillSection.css";
 
@@ -64,7 +65,7 @@ class SkillSection extends Component {
             <Grid.Row columns={2}>
               <Grid.Column className="skillsLeft" width={6}>
                 <Header as="h2" textAlign="center">
-                  Skills
+                  Tools
                 </Header>
               </Grid.Column>
 
@@ -78,5 +79,9 @@ class SkillSection extends Component {
     );
   }
 }
+
+SkillSection.propTypes = {
+  skills: propTypes.array.isRequired
+};
 
 export default SkillSection;

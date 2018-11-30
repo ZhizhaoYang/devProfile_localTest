@@ -14,10 +14,10 @@ import SkillSet from "./SkillSection";
 
 class UserProfile extends Component {
   componentDidMount = () => {
-    const { user } = this.props.auth;
+    // console.log(this.props.match.params.user_id);
+    let userID = this.props.match.params.user_id;
 
-    // console.log(this.props.auth.user.id);
-    this.props.getCurrentUserProfile(this.props.auth.user.id);
+    this.props.getCurrentUserProfile(userID);
   };
 
   // componentWillUpdate = nextProps => {

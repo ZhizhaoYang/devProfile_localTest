@@ -143,6 +143,17 @@ class Navbar extends Component {
                   >
                     Dashboard
                   </Menu.Item>
+
+                  <Menu.Item
+                    name="profilesList"
+                    link={true}
+                    active={activeItem === "profilesList"}
+                    onClick={this.handleItemClick}
+                    style={menuItemStyle}
+                    linkto="/profilesList"
+                  >
+                    Developers
+                  </Menu.Item>
                 </Container>
 
                 {isValidToLogin ? validUserLink : guestNav}

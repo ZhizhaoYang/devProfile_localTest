@@ -4,7 +4,8 @@ import {
   GET_PROFILE,
   CLEAR_CURRENT_PROFILE,
   PROFILE_LOADING,
-  GET_ERRORS
+  GET_ERRORS,
+  GET_PROFILES
 } from "./actionTypes";
 
 // Profile loading
@@ -15,11 +16,11 @@ export const setProfileLoading = () => {
 };
 
 // Get current profile
-export const getCurrentUserProfile = () => dispatch => {
+export const getCurrentUserProfile = user_id => dispatch => {
   dispatch(setProfileLoading());
 
   axios
-    .get("/api/profile")
+    .get(`/api/profile/${user_id}`)
     .then(res => {
       dispatch({
         type: GET_PROFILE,
@@ -54,9 +55,23 @@ export const createProfile = (profileData, history) => dispatch => {
     );
 };
 
-//Change & collent the skills component states value
-// export const collectSkill = newSkill => {
-//   return newSkill;
-// };
+// Get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get("/api/profile/all")
+    .then(res => {
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: null
+      })
+    );
+};
 
 export const addNewSkill = () => {};

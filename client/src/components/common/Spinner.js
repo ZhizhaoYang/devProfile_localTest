@@ -7,7 +7,12 @@ export default () => {
     <div>
       <img
         src={loadingPizza}
-        style={{ width: "200px", margin: "auto", display: "block" }}
+        style={{
+          width: "200px",
+          margin: "auto",
+          display: "block",
+          textAlign: "center"
+        }}
         alt="loading"
       />
     </div>

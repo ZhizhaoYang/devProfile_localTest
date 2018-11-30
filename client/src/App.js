@@ -18,8 +18,10 @@ import Login from "./components/auth/Login";
 import NotFound from "./components/NotFound";
 import Dashboard from "./components/dashboard/Dashboard";
 import UserProfile from "./components/profile/userProfile/UserProfile";
+import UserProfileBySearch from "./components/profile/userProfile/UserProfileBySearch";
 import About from "./components/introduction/About";
 import EditProfile from "./components/profile/editProfile/EditProfile";
+import ProfilesList from "./components/profiles/ProfilesList";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -57,18 +59,25 @@ class App extends Component {
       <Router>
         <div className="App">
           <Navbar />
+
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/userProfile/:user_id" component={UserProfile} />
+          <Route exact path="/editProfile" component={EditProfile} />
+          <Route exact path="/profilesList" component={ProfilesList} />
+          <Route
+            exact
+            path="/userProfileBySearch/:user_id"
+            component={UserProfileBySearch}
+          />
+
           <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/userProfile" component={UserProfile} />
-            <Route exact path="/editProfile" component={EditProfile} />
-
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
-
-            <Route component={NotFound} />
           </Switch>
+          <Route exact path="/not-found" component={NotFound} />
+
           <Footer />
         </div>
       </Router>

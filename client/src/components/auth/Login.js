@@ -49,13 +49,13 @@ class Login extends Component {
     document.title = "Login Page";
 
     if (this.props.auth.isValidToLogin) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/");
     }
   };
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.auth.isValidToLogin === true) {
-      nextProps.history.push("/dashboard");
+      nextProps.history.push("/");
     }
 
     if (nextProps.errors) {

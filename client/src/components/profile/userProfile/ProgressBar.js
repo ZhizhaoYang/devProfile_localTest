@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import propTypes from "prop-types";
 
 import isEmpty from "../../../toolKit/isEmpty";
 
@@ -10,43 +10,29 @@ class ProgressBar extends Component {
     super(props);
 
     this.state = {
-      text: "0",
       percentage: "0"
     };
+
+    // this._isMounted = false;
   }
 
-  componentDidMount = async () => {
-    await setTimeout(
-      function() {
-        this.setState({
-          percentage: this.props.percentage
-        });
-      }.bind(this),
-      500
-    );
+  componentWillMount = () => {
+    try {
+      setTimeout(
+        function() {
+          this.setState({
+            percentage: this.props.percentage
+          });
+        }.bind(this),
+        500
+      );
+    } catch (error) {
+      console.log("NONONO");
+    }
   };
 
   render() {
     const percentage = Number(this.state.percentage);
-    let text = this.state.text;
-    console.log(text);
-
-    // const TextAfter = styled.div`
-    //   margin-left: 10%;
-    //   &:after {
-    //     content: " AAA";
-    //   }
-    // `;
-
-    // let text = (
-    //   <TextAfter>
-    //     {/* <span
-    //       className="text skills-progress-bar"
-    //       style={{ marginLeft: `${percentage}%` }}
-    //     > */}
-    //     {isEmpty(percentage) ? "0" : percentage}%{/* </span> */}
-    //   </TextAfter>
-    // );
 
     return (
       <div>
@@ -73,5 +59,9 @@ class ProgressBar extends Component {
     );
   }
 }
+
+ProgressBar.propTypes = {
+  percentage: propTypes.string
+};
 
 export default ProgressBar;
