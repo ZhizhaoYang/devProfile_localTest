@@ -16,10 +16,10 @@ export const setProfileLoading = () => {
 };
 
 // Get current profile
-export const getCurrentUserProfile = user_id => dispatch => {
+export const getCurrentUserProfile = user_id => async dispatch => {
   dispatch(setProfileLoading());
 
-  axios
+  await axios
     .get(`/api/profile/${user_id}`)
     .then(res => {
       dispatch({
@@ -43,8 +43,8 @@ export const clearCurrentProfile = () => {
 };
 
 // Create new Profile
-export const createProfile = (profileData, history) => dispatch => {
-  axios
+export const createProfile = (profileData, history) => async dispatch => {
+  await axios
     .post("/api/profile", profileData)
     .then(res => history.push("/dashboard"))
     .catch(err =>
@@ -56,9 +56,10 @@ export const createProfile = (profileData, history) => dispatch => {
 };
 
 // Get all profiles
-export const getProfiles = () => dispatch => {
+export const getProfiles = () => async dispatch => {
   dispatch(setProfileLoading());
-  axios
+
+  await axios
     .get("/api/profile/all")
     .then(res => {
       dispatch({

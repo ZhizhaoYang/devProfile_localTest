@@ -16,9 +16,9 @@ class ProgressBar extends Component {
     // this._isMounted = false;
   }
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
     try {
-      setTimeout(
+      await setTimeout(
         function() {
           this.setState({
             percentage: this.props.percentage
@@ -27,7 +27,7 @@ class ProgressBar extends Component {
         500
       );
     } catch (error) {
-      console.log("NONONO");
+      console.log(error);
     }
   };
 

@@ -13,12 +13,11 @@ export const setCurrentUser = currentUser => {
 };
 
 // Register User
-export const registerNewUser = (userData, history) => dispatch => {
+export const registerNewUser = (userData, history) => async dispatch => {
   // Post new user to the api address through axios package,
   // the userData obj will be as the keys value pass to server,
   // like req.body.name, req.body.email
-
-  axios
+  await axios
     .post("/api/users/register", userData)
     .then(res => {
       const reinitialErrors = {};
@@ -44,8 +43,8 @@ export const registerNewUser = (userData, history) => dispatch => {
 };
 
 // Login - Get User Token --> authReducer or errorsReducer
-export const loginUser = userData => dispatch => {
-  axios
+export const loginUser = userData => async dispatch => {
+  await axios
     .post("/api/users/login", userData) // Will get a token from login api
     .then(res => {
       // Destruct token from res.data
